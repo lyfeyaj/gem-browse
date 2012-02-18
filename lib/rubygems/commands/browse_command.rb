@@ -15,7 +15,7 @@ class Gem::Commands::BrowseCommand < Gem::Browse::Command
         get_json(name)[/"homepage_uri":\s*"([^"]*)"/, 1]
       end
     homepage = "http://rubygems.org/gems/#{name}" if homepage.to_s.empty?
-    unless system('git', 'web--browse', homepage)
+    unless system("git web--browse #{homepage} > /dev/null")
       alert_error('Error starting web browser (using git web--browse).')
       terminate_interaction 1
     end
