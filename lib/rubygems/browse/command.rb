@@ -23,6 +23,29 @@ module Gem::Browse
         terminate_interaction 1
       end
     end
+    
+    def add_browser_option
+      add_option('-b', '--browser BROWSER', 'Specify browser to invoke') do |browser, options|
+        options[:browser] = browser
+      end
+    end
+    
+    def browser
+      options[:browser] ||
+        ENV['GEM_BROWSER'] ||
+        ENV['TOOL'] ||
+        ENV['BROWSER'] ||
+        'firefox'
+    end
+    
+    def browse(homepage)
+      browser_with_options = browser.split(/\s+/) || []
+      browser_with_options.unshift( '--browser=' + browser_with_options.shift) if !browser_with_options.empty?
+      unless system("git web--browse #{browser_with_options.join(' ')} #{homepage} > /dev/null")
+        alert_error "Error starting web browser (using git web--browse) or some thing wrong with #{browser}."
+        terminate_interaction 1
+      end
+    end
 
     def find_by_name(*args)
       if Gem::Specification.respond_to?(:find_by_name)

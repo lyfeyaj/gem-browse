@@ -13,6 +13,11 @@ Actually that's not it.  You can also open a gem by name.
 
 Your editor's current working directory will be the root of the gem.
 
+You can also set your configuration in your ~/.gemrc file as below:
+
+    open: -e mvim
+    edit: -e mvim
+
 I almost forgot.  You can also clone a gem from GitHub.
 
     gem clone rails
@@ -31,6 +36,15 @@ gem's homepage in your browser.  You know, the command this gem is named
 after.
 
     gem browse sprockets
+
+And you can tell it to open the gem in your specified browser afterwards.
+
+    gem browse -b google-chrome sprockets
+    gem browse --browser google-chrome sprockets
+
+Or, you can set this in your ~/.gemrc file with below lines:
+
+    browse: --browser google-chrome
 
 Installation
 ------------

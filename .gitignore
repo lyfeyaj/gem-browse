@@ -2,3 +2,5 @@
 .bundle
 Gemfile.lock
 pkg/*
+.tags
+.tags_sorted_by_file

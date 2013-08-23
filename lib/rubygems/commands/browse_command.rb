@@ -3,7 +3,8 @@ require 'rubygems/browse/command'
 class Gem::Commands::BrowseCommand < Gem::Browse::Command
 
   def initialize
-    super 'open', "Open a gem's homepage in your web browser"
+    super 'browse', "Open a gem's homepage in your web browser"
+    add_browser_option
   end
 
   def execute
@@ -15,10 +16,7 @@ class Gem::Commands::BrowseCommand < Gem::Browse::Command
         get_json(name)[/"homepage_uri":\s*"([^"]*)"/, 1]
       end
     homepage = "http://rubygems.org/gems/#{name}" if homepage.to_s.empty?
-    unless system("git web--browse #{homepage} > /dev/null")
-      alert_error('Error starting web browser (using git web--browse).')
-      terminate_interaction 1
-    end
+    browse homepage
   end
 
 end
