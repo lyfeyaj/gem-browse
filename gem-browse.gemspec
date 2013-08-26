@@ -19,6 +19,7 @@ gem browse: open a gem's homepage in your browser.
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
-
+  
+  s.add_dependency('os', '~> 0.9')
   s.add_development_dependency('rake', '~> 0.8')
 end

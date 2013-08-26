@@ -1,4 +1,5 @@
 require 'rubygems/command'
+require 'os'
 
 module Gem::Browse
   class Command < Gem::Command
@@ -31,11 +32,18 @@ module Gem::Browse
     end
     
     def browser
+      default_browser = if OS.mac?
+        'open'
+      elsif OS.windows?
+        'start'
+      elsif OS.linux?
+        'firefox'
+      end
       options[:browser] ||
         ENV['GEM_BROWSER'] ||
         ENV['TOOL'] ||
         ENV['BROWSER'] ||
-        'firefox'
+        default_browser
     end
     
     def browse(homepage)
